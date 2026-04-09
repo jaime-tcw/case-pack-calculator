@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Case Pack Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Amazon Case Pack Calculator</h1>
+    <p class="subtitle">Stencil Butter 4-Pack Distribution</p>
+
+    <div class="settings-grid">
+      <div class="setting">
+        <label for="unitsPerCase">Units Per Case</label>
+        <input type="number" id="unitsPerCase" value="27" min="1">
+      </div>
+      <div class="setting">
+        <label for="caseMultiple">Case Multiple</label>
+        <input type="number" id="caseMultiple" value="5" min="1">
+      </div>
+      <div class="setting">
+        <label for="numCases">Number of Cases</label>
+        <input type="number" id="numCases" value="30" min="1">
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-label">Total Need</span>
+        <span class="stat-value" id="totalNeed">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Suggested Cases</span>
+        <span class="stat-value" id="suggestedCases">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Total Shipping</span>
+        <span class="stat-value" id="totalShipping">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Per Case Check</span>
+        <span class="stat-value" id="perCaseCheck">—</span>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="skuTable">
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th class="hide-mobile">Style</th>
+            <th>Need</th>
+            <th>Priority</th>
+            <th>% Need</th>
+            <th>Per Case</th>
+            <th>Total</th>
+            <th>Diff</th>
+          </tr>
+        </thead>
+        <tbody id="skuBody"></tbody>
+        <tfoot>
+          <tr id="totalRow">
+            <td><strong>TOTAL</strong></td>
+            <td class="hide-mobile"></td>
+            <td id="footNeed">0</td>
+            <td></td>
+            <td id="footPct">—</td>
+            <td id="footPerCase">0</td>
+            <td id="footTotal">0</td>
+            <td id="footDiff">0</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="actions">
+      <button id="autoDistribute" class="btn btn-primary">Auto-Distribute</button>
+      <button id="resetAll" class="btn btn-secondary">Reset</button>
+    </div>
+
+    <details class="instructions">
+      <summary>How to Use</summary>
+      <ol>
+        <li>Enter each SKU's current Amazon inventory <strong>Need</strong> (0 = exclude).</li>
+        <li>Set <strong>Priority</strong>: 1 = High (round up), 2 = Normal, 3 = Low (round down OK).</li>
+        <li>Check the <strong>Suggested Cases</strong> value, then set <strong>Number of Cases</strong>.</li>
+        <li>Click <strong>Auto-Distribute</strong> or manually adjust <strong>Per Case</strong> until the check shows ✓.</li>
+        <li>The <strong>Diff</strong> column shows over (+) or under (−) vs. need.</li>
+      </ol>
+    </details>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
