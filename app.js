@@ -193,9 +193,8 @@ function createPdf() {
     return `<tr>
       <td style="padding:6px 10px;border:1px solid #ccc;font-weight:600">${v.sku}</td>
       <td style="padding:6px 10px;border:1px solid #ccc;font-size:12px">${item.contents}</td>
-      <td style="padding:6px 10px;border:1px solid #ccc;text-align:center">${v.need}</td>
-      <td style="padding:6px 10px;border:1px solid #ccc;text-align:center">${v.perCase}</td>
       <td style="padding:6px 10px;border:1px solid #ccc;text-align:center">${total}</td>
+      <td style="padding:6px 10px;border:1px solid #ccc;text-align:center">${v.perCase}</td>
     </tr>`;
   }).join("");
 
@@ -227,17 +226,15 @@ function createPdf() {
   <thead><tr>
     <th style="text-align:left">SKU</th>
     <th style="text-align:left">Contents</th>
-    <th>Need</th>
-    <th>Per Case</th>
     <th>Total</th>
+    <th>Per Case</th>
   </tr></thead>
   <tbody>${tableRows}</tbody>
   <tfoot><tr>
     <td style="text-align:left;border:1px solid #999">TOTAL</td>
     <td style="border:1px solid #999"></td>
-    <td style="text-align:center;border:1px solid #999">${totalNeed}</td>
-    <td style="text-align:center;border:1px solid #999">${totalPerCase}</td>
     <td style="text-align:center;border:1px solid #999">${totalShipped}</td>
+    <td style="text-align:center;border:1px solid #999">${totalPerCase}</td>
   </tr></tfoot>
 </table>
 <script>window.onload = function() { window.print(); }</script>
