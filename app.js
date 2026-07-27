@@ -1,15 +1,16 @@
 const SKUS = [
-  { sku: "TCW9074", style: "Caribbean Sea", defaultNeed: 95, defaultPriority: 1 },
-  { sku: "TCW9075", style: "Mardi Gras", defaultNeed: 62, defaultPriority: 2 },
-  { sku: "TCW9076", style: "Holiday", defaultNeed: 0, defaultPriority: 3 },
-  { sku: "TCW9115", style: "Blooms", defaultNeed: 57, defaultPriority: 2 },
-  { sku: "TCW9118", style: "Formal", defaultNeed: 32, defaultPriority: 3 },
-  { sku: "TCW9119", style: "Celebration", defaultNeed: 96, defaultPriority: 1 },
-  { sku: "TCW9134", style: "Coastal", defaultNeed: 213, defaultPriority: 1 },
-  { sku: "TCW9135", style: "Beach House", defaultNeed: 0, defaultPriority: 3 },
-  { sku: "TCW9151", style: "Petals and Herbs", defaultNeed: 100, defaultPriority: 2 },
-  { sku: "TCW9157", style: "Blueberry Meadow", defaultNeed: 55, defaultPriority: 2 },
-  { sku: "TCW9204", style: "Masquerade", defaultNeed: 60, defaultPriority: 2 },
+  { sku: "TCW9074", style: "Caribbean Sea", contents: "Chartreuse, Lime Green, Ocean Blue, Turquoise", defaultNeed: 95, defaultPriority: 1 },
+  { sku: "TCW9075", style: "Mardi Gras", contents: "Fuchsia, Orchid, Champagne, Marigold", defaultNeed: 62, defaultPriority: 2 },
+  { sku: "TCW9076", style: "Holiday", contents: "Crimson, Terre Verte, Champagne Gold, Pearl White", defaultNeed: 0, defaultPriority: 3 },
+  { sku: "TCW9115", style: "Blooms", contents: "Hydrangea, Watermelon, Pink Lemonade, Summer Sky", defaultNeed: 57, defaultPriority: 2 },
+  { sku: "TCW9118", style: "Formal", contents: "Pearl White, Copper, Black, Platinum", defaultNeed: 32, defaultPriority: 3 },
+  { sku: "TCW9119", style: "Celebration", contents: "Platinum, Pearl White, Black, Champagne Gold", defaultNeed: 96, defaultPriority: 1 },
+  { sku: "TCW9134", style: "Coastal", contents: "Oyster, Beach Grass, Ocean Mist, Dune", defaultNeed: 213, defaultPriority: 1 },
+  { sku: "TCW9135", style: "Beach House", contents: "Seashell, Driftwood, Sea Glass, Stormy", defaultNeed: 0, defaultPriority: 3 },
+  { sku: "TCW9151", style: "Petals and Herbs", contents: "Blush, Rose, Sage, Olive", defaultNeed: 100, defaultPriority: 2 },
+  { sku: "TCW9157", style: "Blueberry Meadow", contents: "Navy, Cornflower Blue, Violet, Orchid", defaultNeed: 55, defaultPriority: 2 },
+  { sku: "TCW9204", style: "Masquerade", contents: "Orchid, Lime Green, Fuchsia, Champagne Gold", defaultNeed: 60, defaultPriority: 2 },
+  { sku: "TCW9216", style: "Cottage Garden", contents: "Dusty Pink, Dusty Blue, Pistachio, Mulberry", defaultNeed: 0, defaultPriority: 3 },
 ];
 
 const $ = (sel) => document.querySelector(sel);
@@ -21,7 +22,7 @@ function buildRows() {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${item.sku}<br><span class="style-name hide-mobile">${item.style}</span></td>
-      <td class="hide-mobile"><span class="style-name">${item.style}</span></td>
+      <td class="hide-mobile"><span class="style-name">${item.contents}</span></td>
       <td><input type="number" min="0" value="${item.defaultNeed}" data-field="need" data-idx="${i}"></td>
       <td>
         <select data-field="priority" data-idx="${i}">
