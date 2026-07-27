@@ -174,6 +174,81 @@ document.addEventListener("input", (e) => {
 
 $("#autoDistribute").addEventListener("click", autoDistribute);
 $("#clearNeeds").addEventListener("click", clearNeeds);
+$("#createPdf").addEventListener("click", createPdf);
+
+function createPdf() {
+  const unitsPerCase = parseInt($("#unitsPerCase").value) || 27;
+  const numCases = parseInt($("#numCases").value) || 0;
+  const values = getValues();
+  const totalNeed = values.reduce((s, v) => s + v.need, 0);
+  const totalShipping = numCases * unitsPerCase;
+
+  const today = new Date();
+  const dateStr = today.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
+  const activeRows = values.filter(v => v.need > 0 || v.perCase > 0);
+
+  let tableRows = activeRows.map(v => {
+    const total = v.perCase * numCases;
+    const item = SKUS[values.indexOf(v)];
+    return `<tr>
+      <td style="padding:6px 10px;border:1px solid #ccc;font-weight:600">${v.sku}</td>
+      <td style="padding:6px 10px;border:1px solid #ccc;font-size:12px">${item.contents}</td>
+      <td style="padding:6px 10px;border:1px solid #ccc;text-align:center">${v.need}</td>
+      <td style="padding:6px 10px;border:1px solid #ccc;text-align:center">${v.perCase}</td>
+      <td style="padding:6px 10px;border:1px solid #ccc;text-align:center">${total}</td>
+    </tr>`;
+  }).join("");
+
+  const totalPerCase = activeRows.reduce((s, v) => s + v.perCase, 0);
+  const totalShipped = activeRows.reduce((s, v) => s + v.perCase * numCases, 0);
+
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Amazon Shipment ${dateStr}</title>
+<style>
+  @page { size: letter; margin: 0.75in; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #111; margin: 0; padding: 40px; }
+  h1 { font-size: 22px; margin: 0 0 24px 0; text-align: center; }
+  .stats { display: flex; gap: 40px; margin-bottom: 20px; }
+  .stat { font-size: 14px; }
+  .stat strong { font-size: 16px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  th { padding: 8px 10px; border: 1px solid #999; background: #f0f0f0; font-size: 12px; text-transform: uppercase; text-align: center; }
+  th:first-child, th:nth-child(2) { text-align: left; }
+  td { font-size: 13px; }
+  tfoot td { font-weight: 700; background: #f0f0f0; border: 1px solid #999; padding: 8px 10px; }
+</style></head><body>
+<h1>Amazon Shipment &mdash; ${dateStr}</h1>
+<div class="stats">
+  <div class="stat">Units Per Case: <strong>${unitsPerCase}</strong></div>
+  <div class="stat">Number of Cases: <strong>${numCases}</strong></div>
+  <div class="stat">Total Need: <strong>${totalNeed}</strong></div>
+  <div class="stat">Total Shipping: <strong>${totalShipping}</strong></div>
+</div>
+<table>
+  <thead><tr>
+    <th style="text-align:left">SKU</th>
+    <th style="text-align:left">Contents</th>
+    <th>Need</th>
+    <th>Per Case</th>
+    <th>Total</th>
+  </tr></thead>
+  <tbody>${tableRows}</tbody>
+  <tfoot><tr>
+    <td style="text-align:left;border:1px solid #999">TOTAL</td>
+    <td style="border:1px solid #999"></td>
+    <td style="text-align:center;border:1px solid #999">${totalNeed}</td>
+    <td style="text-align:center;border:1px solid #999">${totalPerCase}</td>
+    <td style="text-align:center;border:1px solid #999">${totalShipped}</td>
+  </tr></tfoot>
+</table>
+<script>window.onload = function() { window.print(); }</script>
+</body></html>`;
+
+  const win = window.open("", "_blank");
+  win.document.write(html);
+  win.document.close();
+}
 
 // Initialize
 buildRows();
