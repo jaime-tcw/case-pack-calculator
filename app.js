@@ -178,7 +178,6 @@ document.addEventListener("input", (e) => {
 
 $("#autoDistribute").addEventListener("click", autoDistribute);
 $("#clearNeeds").addEventListener("click", clearNeeds);
-$("#resetAll").addEventListener("click", resetAll);
 
 // Initialize
 buildRows();
