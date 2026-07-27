@@ -24,6 +24,9 @@ function buildRows() {
       <td>${item.sku}<br><span class="style-name hide-mobile">${item.style}</span></td>
       <td class="hide-mobile"><span class="style-name">${item.contents}</span></td>
       <td><input type="number" min="0" value="${item.defaultNeed}" data-field="need" data-idx="${i}"></td>
+      <td><input type="number" min="0" value="0" data-field="perCase" data-idx="${i}"></td>
+      <td class="total-shipped" data-idx="${i}">0</td>
+      <td class="diff" data-idx="${i}">0</td>
       <td>
         <select data-field="priority" data-idx="${i}">
           <option value="1"${item.defaultPriority === 1 ? " selected" : ""}>1-High</option>
@@ -31,10 +34,6 @@ function buildRows() {
           <option value="3"${item.defaultPriority === 3 ? " selected" : ""}>3-Low</option>
         </select>
       </td>
-      <td class="pct" data-idx="${i}">—</td>
-      <td><input type="number" min="0" value="0" data-field="perCase" data-idx="${i}"></td>
-      <td class="total-shipped" data-idx="${i}">0</td>
-      <td class="diff" data-idx="${i}">0</td>
     `;
     body.appendChild(tr);
   });
@@ -76,11 +75,9 @@ function recalc() {
   let footNeed = 0, footPerCase = 0, footTotal = 0, footDiff = 0;
 
   values.forEach((v, i) => {
-    const pct = totalNeed > 0 ? (v.need / totalNeed) : 0;
     const totalShipped = v.perCase * numCases;
     const diff = totalShipped - v.need;
 
-    body.querySelector(`.pct[data-idx="${i}"]`).textContent = totalNeed > 0 ? (pct * 100).toFixed(1) + "%" : "—";
     body.querySelector(`.total-shipped[data-idx="${i}"]`).textContent = totalShipped;
 
     const diffEl = body.querySelector(`.diff[data-idx="${i}"]`);
@@ -97,7 +94,6 @@ function recalc() {
   $("#footPerCase").textContent = footPerCase;
   $("#footTotal").textContent = footTotal;
   $("#footDiff").textContent = footDiff > 0 ? `+${footDiff}` : footDiff;
-  $("#footPct").textContent = "100%";
 }
 
 function autoDistribute() {
