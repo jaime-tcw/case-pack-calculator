@@ -204,7 +204,7 @@ function createPdf() {
   const totalShipped = activeRows.reduce((s, v) => s + v.perCase * numCases, 0);
 
   const html = `<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Amazon Shipment ${dateStr}</title>
+<html><head><meta charset="UTF-8"><title>Amazon 4-Pack Shipment ${dateStr}</title>
 <style>
   @page { size: letter; margin: 0.75in; }
   body { font-family: Arial, Helvetica, sans-serif; color: #111; margin: 0; padding: 40px; }
@@ -218,7 +218,7 @@ function createPdf() {
   td { font-size: 13px; }
   tfoot td { font-weight: 700; background: #f0f0f0; border: 1px solid #999; padding: 8px 10px; }
 </style></head><body>
-<h1>Amazon Shipment &mdash; ${dateStr}</h1>
+<h1>Amazon 4-Pack Shipment ${dateStr}</h1>
 <div class="stats">
   <div class="stat">Units Per Case: <strong>${unitsPerCase}</strong></div>
   <div class="stat">Number of Cases: <strong>${numCases}</strong></div>
