@@ -59,7 +59,6 @@ function recalc() {
   const totalShipping = numCases * unitsPerCase;
   const perCaseSum = values.reduce((s, v) => s + v.perCase, 0);
 
-  $("#totalNeed").textContent = totalNeed;
   $("#suggestedCases").textContent = suggestedCases;
   $("#totalShipping").textContent = totalShipping;
 
@@ -222,7 +221,6 @@ function createPdf() {
 <div class="stats">
   <div class="stat">Units Per Case: <strong>${unitsPerCase}</strong></div>
   <div class="stat">Number of Cases: <strong>${numCases}</strong></div>
-  <div class="stat">Total Need: <strong>${totalNeed}</strong></div>
   <div class="stat">Total Shipping: <strong>${totalShipping}</strong></div>
 </div>
 <table>
