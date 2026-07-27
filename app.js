@@ -150,6 +150,14 @@ function autoDistribute() {
   recalc();
 }
 
+function clearNeeds() {
+  SKUS.forEach((_, i) => {
+    body.querySelector(`input[data-field="need"][data-idx="${i}"]`).value = 0;
+    body.querySelector(`input[data-field="perCase"][data-idx="${i}"]`).value = 0;
+  });
+  recalc();
+}
+
 function resetAll() {
   SKUS.forEach((item, i) => {
     body.querySelector(`input[data-field="need"][data-idx="${i}"]`).value = item.defaultNeed;
@@ -168,6 +176,7 @@ document.addEventListener("input", (e) => {
 });
 
 $("#autoDistribute").addEventListener("click", autoDistribute);
+$("#clearNeeds").addEventListener("click", clearNeeds);
 $("#resetAll").addEventListener("click", resetAll);
 
 // Initialize
